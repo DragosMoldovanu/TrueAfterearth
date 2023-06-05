@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     public float feetColliderVertOffset = 0;
     public float bottomCollisionDetectRange = 0.05f;
 
+    [Header("SFX")]
+    public AudioSource walkSource;
+    public AudioSource jumpSource;
+
     private Rigidbody2D body;
     private bool grounded;
 
@@ -68,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 body.AddForce(Vector2.up * jumpForce);
                 GetComponent<Animator>().SetTrigger("jump");
+                jumpSource.Play();
             }
         }
         else
@@ -76,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 body.AddForce(Vector2.up * jumpForce * 10 * Time.deltaTime);
                 //GetComponent<Animator>().SetTrigger("jump");
+                jumpSource.Play();
             }
         }
 
@@ -96,10 +102,15 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))
         {
             GetComponent<Animator>().SetBool("walking", true);
+            if (!walkSource.isPlaying)
+            {
+                walkSource.Play();
+            }
         }
         else
         {
             GetComponent<Animator>().SetBool("walking", false);
+            walkSource.Stop();
         }
 
         if (body.velocity.y < 0)

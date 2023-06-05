@@ -8,6 +8,10 @@ public class ClosePortal : MonoBehaviour
     public float closeTime;
     public float maxSize;
 
+    [Header("SFX")]
+    public AudioClip constantSFX;
+    public AudioClip closeSFX;
+
     private float time = 0;
     private bool spawning = true;
     private bool closing = false;
@@ -41,6 +45,20 @@ public class ClosePortal : MonoBehaviour
         }
         else if (closing)
         {
+            if (closeTime >= 2 && Time.timeScale == 1)
+            {
+                GetComponent<AudioSource>().clip = constantSFX;
+                GetComponent<AudioSource>().loop = true;
+                if (!GetComponent<AudioSource>().isPlaying)
+                    GetComponent<AudioSource>().Play();
+            }
+            else if (closeTime > 0 && Time.timeScale == 1)
+            {
+                GetComponent<AudioSource>().clip = closeSFX;
+                if (!GetComponent<AudioSource>().isPlaying)
+                    GetComponent<AudioSource>().Play();
+            }
+
             if (time >= closeTime)
             {
                 coordinator.GetComponent<CoordinatePlayers>().portalOne = false;
@@ -70,5 +88,8 @@ public class ClosePortal : MonoBehaviour
             time = 0;
             closeTime = 0.3f;
         }
+
+        GetComponent<AudioSource>().clip = closeSFX;
+        GetComponent<AudioSource>().Play();
     }
 }

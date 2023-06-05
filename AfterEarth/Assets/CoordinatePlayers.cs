@@ -138,6 +138,35 @@ public class CoordinatePlayers : MonoBehaviour
             portalViewThree.chosenCamera = camWorldFour;
             portalViewFour.chosenCamera = camWorldFour;
         }
+
+        if ((currentOne && !centerEntered) || (portalOne && centerEntered))
+        {
+            playerWorldOne.GetComponent<AudioListener>().enabled = true;
+            playerWorldTwo.GetComponent<AudioListener>().enabled = false;
+            playerWorldThree.GetComponent<AudioListener>().enabled = false;
+            playerWorldFour.GetComponent<AudioListener>().enabled = false;
+        }
+        if ((currentTwo && !centerEntered) || (portalTwo && centerEntered))
+        {
+            playerWorldOne.GetComponent<AudioListener>().enabled = false;
+            playerWorldTwo.GetComponent<AudioListener>().enabled = true;
+            playerWorldThree.GetComponent<AudioListener>().enabled = false;
+            playerWorldFour.GetComponent<AudioListener>().enabled = false;
+        }
+        if ((currentThree && !centerEntered) || (portalThree && centerEntered))
+        {
+            playerWorldOne.GetComponent<AudioListener>().enabled = false;
+            playerWorldTwo.GetComponent<AudioListener>().enabled = false;
+            playerWorldThree.GetComponent<AudioListener>().enabled = true;
+            playerWorldFour.GetComponent<AudioListener>().enabled = false;
+        }
+        if ((currentFour && !centerEntered) || (portalFour && centerEntered))
+        {
+            playerWorldOne.GetComponent<AudioListener>().enabled = false;
+            playerWorldTwo.GetComponent<AudioListener>().enabled = false;
+            playerWorldThree.GetComponent<AudioListener>().enabled = false;
+            playerWorldFour.GetComponent<AudioListener>().enabled = true;
+        }
     }
 
     // Update is called once per frame
